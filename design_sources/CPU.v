@@ -13,7 +13,6 @@ module CPU(
 
     wire[31:0] PC;
     wire[31:0] Instruction; // [31:26], [25:21], [15:11], [15:0]
-    // 一开始， PC值位零
     // determine whether to enable clock
     wire clock_enable;
     // Control Signals ...
