@@ -36,5 +36,4 @@ module RegisterFile
             r_data2 = reg_file_array[r_addr2];            
             registerAddressVal = reg_file_array[31];                     
         end     
-    //assign test3 = reg_file_array[8];
 endmodule
