@@ -13,7 +13,7 @@ module CPU(
 
     wire[31:0] PC;
     wire[31:0] Instruction; // [31:26], [25:21], [15:11], [15:0]
-    // “ªø™ º£¨ PC÷µŒª¡„
+    // ‰∏ÄÂºÄÂßãÔºå PCÂÄº‰ΩçÈõ∂
     // determine whether to enable clock
     wire clock_enable;
     // Control Signals ...
@@ -56,20 +56,12 @@ module CPU(
     wire [5:0] ALUFunctionCode;
     wire [31:0] ALUResult;
     
-    // 7-segment display
     assign finished_sort = PC[7:0] == 8'b01000000 ? 1 : 0;
     assign clk_en = clock_enable;
-    //assign write_data = WriteRegisterData[7:0];
     assign instruction_counter = PC[7:0];
-   // assign write_data = WriteRegisterData[7:0];    
-    //assign disp_tens = DisplayTens;
-    //assign disp_ones = DisplayOnes;
-   //  assign q[15:8] = WriteRegisterData[7:0];
-    // need to add control unit, register file, ALU, data memory etc.
     assign SignExtendedAddress[15:0] = Instruction[15:0];
     assign SignExtendedAddress[31:16] = Instruction[15] == 1'b1 ? 16'b1111111111111111 : 
                                                                   16'b0000000000000000;
-     // need to depend on control signal   
     ProgramCounter uPC(clk, clock_enable,
                        Control_ZeroFlag, Control_Branch, Control_BranchNE, 
                        SignExtendedAddress,
@@ -100,7 +92,6 @@ module CPU(
                          ReadRegisterAddress1, ReadRegisterAddress2,
                          WriteRegisterData, ReadRegisterData1, ReadRegisterData2,
                          RegisterAddressValue);                         
-    // need to assign WriteRegisterData from data memory etc.
     
     assign ALUInput1 = ReadRegisterData1;
     multiplexer32Bit Multiplexer2(ReadRegisterData2, SignExtendedAddress,
@@ -119,7 +110,7 @@ module CPU(
   begin
     DisplayAddress = (DisplayAddress + 1) % 8;
   end
-  // Œ“√«‘⁄’‚ π”√10Œªµÿ÷∑£¨“ÚŒ™Œ“√«À˘”√µƒµÿ÷∑≤ª”√32Œªƒ«√¥∂‡   
+  
   DataMem uDataMemory(clk, clock_enable,
         DisplayAddress, 
         Control_MemWrite, Control_MemRead,
